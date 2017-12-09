@@ -73,6 +73,8 @@ void OLEDDisplay::setColor(OLEDDISPLAY_COLOR color) {
 }
 
 void OLEDDisplay::setPixel(int16_t x, int16_t y) {
+    x += XOFFSET;
+    y += YOFFSET;
   if (x >= 0 && x < 128 && y >= 0 && y < 64) {
     switch (color) {
       case WHITE:   buffer[x + (y / 8) * DISPLAY_WIDTH] |=  (1 << (y & 7)); break;
@@ -222,6 +224,8 @@ void OLEDDisplay::fillCircle(int16_t x0, int16_t y0, int16_t radius) {
 }
 
 void OLEDDisplay::drawHorizontalLine(int16_t x, int16_t y, int16_t length) {
+  x += XOFFSET;
+  y += YOFFSET;
   if (y < 0 || y >= DISPLAY_HEIGHT) { return; }
 
   if (x < 0) {
@@ -255,6 +259,8 @@ void OLEDDisplay::drawHorizontalLine(int16_t x, int16_t y, int16_t length) {
 }
 
 void OLEDDisplay::drawVerticalLine(int16_t x, int16_t y, int16_t length) {
+  x += XOFFSET;
+  y += YOFFSET;
   if (x < 0 || x >= DISPLAY_WIDTH) return;
 
   if (y < 0) {
@@ -693,6 +699,9 @@ void OLEDDisplay::sendInitCommands(void) {
 }
 
 void inline OLEDDisplay::drawInternal(int16_t xMove, int16_t yMove, int16_t width, int16_t height, const char *data, uint16_t offset, uint16_t bytesInData) {
+   xMove += XOFFSET;
+   yMove += YOFFSET;
+
   if (width < 0 || height < 0) return;
   if (yMove + height < 0 || yMove > DISPLAY_HEIGHT)  return;
   if (xMove + width  < 0 || xMove > DISPLAY_WIDTH)   return;
