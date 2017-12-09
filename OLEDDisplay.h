@@ -42,6 +42,13 @@
 #define OLEDDISPLAY_DOUBLE_BUFFER
 #endif
 
+#ifdef OLEDSHIELDSUPPORT
+#define XOFFSET 32 
+#define YOFFSET 16
+#else
+#define XOFFSET 0 
+#define YOFFSET 0
+#endif
 
 // Display settings
 #define DISPLAY_WIDTH 128
